@@ -1,16 +1,28 @@
-FROM python:3
+# This is an auto generated Dockerfile for ros:ros-base
+# generated from docker_images/create_ros_image.Dockerfile.em
+FROM ros:melodic-ros-core-bionic
 
-# set a directory for the app
-WORKDIR /usr/src/app
+# install bootstrap tools
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    build-essential \
+    python-rosdep \
+    python-rosinstall \
+    python-vcstools \
+    && rm -rf /var/lib/apt/lists/*
 
-# copy all the files to the container
-COPY . .
+# bootstrap rosdep
+RUN rosdep init && \
+  rosdep update --rosdistro $ROS_DISTRO
 
-# install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# install ros packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-melodic-ros-base=1.4.1-0* \
+    && rm -rf /var/lib/apt/lists/*
+ 
+RUN apt-get update
+RUN apt-get upgrade -y --force-yes
+RUN apt-get install ros-melodic-rosbridge-suite -y --force-yes
+CMD ["source", "/opt/ros/melodic/setup.bash"]
 
-# define the port number the container should expose
-EXPOSE 5000
 
-# run the command
-CMD ["python", "./app.py"]
+#RUN source /opt/ros/melodic/setup.bash
