@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- Launch ROS BRIDGE SUITE -->
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" > 
+        <arg name="port" value="8080"/>
+    </include>
+
+    <!-- Launch Telemetery Test Node -->
+    <node pkg="telem_sim" type="telem_sim_node" name="telemSim" respawn="true" output="screen" />
+
+</launch>
