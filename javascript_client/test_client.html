@@ -10,6 +10,7 @@
   // Connecting to ROS
   // -----------------
 
+  // Ip address of the vehicle(ros client) in the network
   var ros = new ROSLIB.Ros({
     url : 'ws://0.0.0.0:8080'
   });
@@ -29,28 +30,32 @@
   // Publishing a Topic
   // ------------------
 
+  // Set up a publisher to the ros client to send data
   var cmdMsg = new ROSLIB.Topic({
     ros : ros,
     name : '/hrov/listener',
     messageType : 'std_msgs/String'
   });
 
+  // construct a message and publish data to the topic
   var msg = new ROSLIB.Message({
-    data : 'Marco'
+    data : 'lemon'
   });
   cmdMsg.publish(msg);
 
   // Subscribing to a Topic
   // ----------------------
 
+  // Set up a subscriber to the ros client to receive data
   var listener = new ROSLIB.Topic({
     ros : ros,
     name : '/hrov/talker',
     messageType : 'geometry_msgs/Point'
   });
 
+  // callback function called whenever new data is received
   listener.subscribe(function(message) {
-    console.log('Received position message on ' + listener.name + ': (' + message.x + ', ' + message.y + ', ' + message.z + ')');
+    console.log('Received position message on ' + listener.name + ': (' + message.x + ', ' + message.y + ', ' + message.z + ') ');
     listener.unsubscribe();
   });
 
