@@ -18,11 +18,24 @@ RUN rosdep init && \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-melodic-ros-base=1.4.1-0* \
     && rm -rf /var/lib/apt/lists/*
+    
+WORKDIR /home/ros
+COPY *.sh /home/ros/
+RUN chmod +x setUpRos.sh launchRos.sh
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+RUN bash -c "./setUpRos.sh"
+
+CMD ["/bin/bash", "-c", "source /home/ros/catkin_ws/devel/setup.bash && roslaunch telem_sim telem.launch"] 
  
-RUN apt-get update
-RUN apt-get upgrade -y --force-yes
-RUN apt-get install ros-melodic-rosbridge-suite -y --force-yes
-CMD ["source", "/opt/ros/melodic/setup.bash"]
+#RUN source ~/.bashrc
+#RUN roslaunch telem_sim telem.launch
 
+#RUN bash -c "./launchRos.sh"
 
-#RUN source /opt/ros/melodic/setup.bash
+#RUN export FLAG=2
+#RUN bash -c "./ros_test.sh"
+
+#CMD ["roslaunch", "telem_sim", "telem.launch"]
+
+#RUN roslaunch telem_sim telem.launch
