@@ -1,4 +1,7 @@
-# This is an auto generated Dockerfile for ros:ros-base
+# Build the image using `docker build ./ -t gshubham96/medusa_telem_test`
+# Run the latest image using `docker run --rm -p 8080:8080 -it gshubham96/medusa_telem_test`
+# Push the image to the repository using `docker push gshubham96/medusa_telem_test`
+
 # generated from docker_images/create_ros_image.Dockerfile.em
 FROM ros:melodic-ros-core-bionic
 

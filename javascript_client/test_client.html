@@ -10,8 +10,8 @@
   // Connecting to ROS
   // -----------------
 
-  // Ip address of the vehicle(ros client) in the network
   var ros = new ROSLIB.Ros({
+    // ip address of the vehicle(ros client) in the network
     url : 'ws://0.0.0.0:8080'
   });
 
@@ -30,7 +30,7 @@
   // Publishing a Topic
   // ------------------
 
-  // Set up a publisher to the ros client to send data
+  // Set up a publisher to the ros client to send data to the vehicle
   var cmdMsg = new ROSLIB.Topic({
     ros : ros,
     name : '/hrov/listener',
@@ -46,7 +46,7 @@
   // Subscribing to a Topic
   // ----------------------
 
-  // Set up a subscriber to the ros client to receive data
+  // Set up a subscriber to the ros client to receive data from the vehicle
   var listener = new ROSLIB.Topic({
     ros : ros,
     name : '/hrov/talker',
@@ -55,7 +55,7 @@
 
   // callback function called whenever new data is received
   listener.subscribe(function(message) {
-    console.log('Received position message on ' + listener.name + ': (' + message.x + ', ' + message.y + ', ' + message.z + ') ');
+    console.log('Received position message on ' + listener.name + '- northing: ' + message.x + ', easting: ' + message.y + ', down: ' + message.z + ') ');
     listener.unsubscribe();
   });
 
