@@ -35,7 +35,7 @@ void chatterCallback(const std_msgs::String& msg)
     std::string hello = "hello world, this is medusa from IST: ";
     std_msgs::String msg_pub;
     if (msg.data == "marco")
-    	msg.data = "polo";
+    	msg.data = std::string("polo");
     msg_pub.data = hello + msg.data ;
 
     ROS_INFO("Publishing - %s", msg_pub.data.c_str());

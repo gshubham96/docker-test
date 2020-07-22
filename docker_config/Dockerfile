@@ -21,21 +21,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     
 WORKDIR /home/ros
 COPY *.sh /home/ros/
-RUN chmod +x setUpRos.sh launchRos.sh
+RUN chmod +x setUpRos.sh
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN bash -c "./setUpRos.sh"
 
-CMD ["/bin/bash", "-c", "source /home/ros/catkin_ws/devel/setup.bash && roslaunch telem_sim telem.launch"] 
- 
-#RUN source ~/.bashrc
-#RUN roslaunch telem_sim telem.launch
-
-#RUN bash -c "./launchRos.sh"
-
-#RUN export FLAG=2
-#RUN bash -c "./ros_test.sh"
-
-#CMD ["roslaunch", "telem_sim", "telem.launch"]
-
-#RUN roslaunch telem_sim telem.launch
+CMD ["/bin/bash", "-c", "source /home/ros/catkin_ws/devel/setup.bash && roslaunch telem_sim telem.launch"]

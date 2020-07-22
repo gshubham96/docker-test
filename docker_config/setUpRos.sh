@@ -12,6 +12,7 @@ function setUpRos {
 	mkdir src/
 	cd src/
 	git clone https://github.com/gshubham96/docker-test.git
+	cp -r ros_server/telem_sim/ ./telem_sim/
 	cd ..
 
 	source /opt/ros/melodic/setup.bash
