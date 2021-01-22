@@ -12,7 +12,13 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  tf2
+ tf2_geometry_msgs
+ tf2_ros
 )
+
+find_package(GeographicLib REQUIRED)    
+include_directories(${GeographicLib_INCLUDE_DIR})
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -106,7 +112,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES telem_sim
-#  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs
+  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs  tf2_geometry_msgs tf2_ros
 #  DEPENDS system_lib
 )
 
@@ -208,4 +214,4 @@ include_directories(
 
 add_executable(telem_sim_node src/telem_sim_node.cpp)
 add_dependencies(telem_sim_node ${catkin_EXPORTED_TARGETS})
-target_link_libraries(telem_sim_node ${catkin_LIBRARIES})
+target_link_libraries(telem_sim_node ${catkin_LIBRARIES} ${GeographicLib_LIBRARIES})
